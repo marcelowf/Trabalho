@@ -1,0 +1,124 @@
+TDE - 2023-1 Alunos: Marcelo Wzorek Filho,Xuekai Qian, Rafael Leal Machado, Raphael de Oliveira Soares
+
+1) Escreva uma função em Python que compute o valor da função abaixo, emitindo uma mensagem de erro caso a função receba um valor não permitido. 
+Além disso, a função deverá plotar um gráfico da função no intervalo entre , destacando neste gráfico os pontos relacionados ao valor de passado para a função.
+
+[ ]
+# 1 
+import numpy as np
+import matplotlib.pyplot as plt
+def f(x):
+    if x >= 2:
+        raise ValueError("O valor de x deve ser menor que 2.")
+    elif x < 0:
+        raise ValueError("O valor de x deve ser maior ou igual a zero.")
+    else:
+        return 1 / np.sqrt(2 - x)
+x = np.linspace(0, 2, 1000)
+valor_x = 1.5
+valor_y = f(valor_x)
+plt.plot(x, f(x)) 
+plt.xlabel("x")
+plt.ylabel("f(x)")
+plt.title("Gráfico da função f(x) = 1/raiz(2-x)")
+plt.plot(valor_x, valor_y, 'ro')
+plt.show()
+
+2) Utilizando a linguagem Python, e somente as bibliotecas Matplotlib e Numpy, crie uma função para plotar uma raquete de tênis de mesa. 
+No seu gráfico a raquete deve ser plotada de forma que seja possível observar tanto o cabo quanto a área de rebatimento.
+
+[ ]
+# 2
+def raquete():
+  x_retangulo = [1, 12, 12, 1, 1]
+  y_retangulo = [0, 0, 6, 6, 0]
+  x_trapezio_abaixo = [1, 12, 8.5, 4.5, 1]
+  y_trapezio_abaixo = [0, 0, -1.5, -1.5, 0]
+  x_trapezio_acima = [1, 12, 10, 3, 1]
+  y_trapezio_acima = [6, 6, 7.8, 7.8, 6]
+  x_triangulo_acima = [3, 10, 6.5]
+  y_triangulo_acima = [7.8, 7.8, 8.5]
+  x_d = [8.5, 7.2, 7.3]
+  y_d = [-1.5, -1.5, -2.8]
+  x_e = [4.5, 5.8, 5.7]
+  y_e = [-1.5, -1.5, -2.8]
+  t = np.linspace(0, 1, 50)
+  x_curve_d = (1 - t)*2 * x_d[0] + 2 * t * (1 - t) * x_d[1] + t*2 * x_d[2]
+  y_curve_d = (1 - t)*2 * y_d[0] + 2 * t * (1 - t) * y_d[1] + t*2 * y_d[2]
+  t = np.linspace(0, 1, 50)
+  x_curve_e = (1 - t)*2 * x_e[0] + 2 * t * (1 - t) * x_e[1] + t*2 * x_e[2]
+  y_curve_e = (1 - t)*2 * y_e[0] + 2 * t * (1 - t) * y_e[1] + t*2 * y_e[2]
+  x_cabo =[5.8, 5.4, 7.6, 7.2, 5.6]
+  y_cabo =[-1.5, -9, -9, -1.5, -1.5]
+  x_centro = 6.5
+  y_centro = 2.7
+  raio = 6.4
+  fig, ax = plt.subplots()
+
+  ax.fill(x_retangulo, y_retangulo, 'blue', lw=2)
+  ax.fill(x_trapezio_abaixo, y_trapezio_abaixo, 'orange', lw=2)
+  ax.fill(x_trapezio_acima, y_trapezio_acima, color='blue', lw=2)
+  ax.fill(x_triangulo_acima, y_triangulo_acima, color='blue', lw=2)
+  ax.fill(x_cabo, y_cabo, color='brown', lw=2)
+  ax.fill_between(x_curve_d, y_curve_d, y2=y_d[0], color='brown', alpha=1)
+  ax.fill_between(x_curve_e, y_curve_e, y2=y_e[0], color='brown', alpha=1)
+  plt.plot(x_curve_d, y_curve_d, color='brown')
+  plt.plot(x_d, y_d, '', color='brown')
+  plt.plot(x_curve_e, y_curve_e, color='brown')
+  plt.plot(x_e, y_e, '', color='brown')
+  ax.add_patch(plt.Circle((x_centro, y_centro), raio, fill=False, linestyle='dotted', linewidth=2))
+  ax.set_aspect('equal')
+  plt.show()
+raquete()
+
+3) Utilizando a linguagem Python, nenhuma biblioteca extra e List Comprehension crie uma função que devolva o resultado da fórmula a seguir para n elementos.
+
+[ ]
+# 3
+def f(n):
+    soma = sum([1/(1+2*i) for i in range(n)])
+    resultado = 4 * (1 - soma)
+    return resultado
+resultado = f(10) # Calcula o resultado da fórmula para n=10
+print(resultado)
+
+4) Usando a linguagem Python, sem utilizar as bibliotecas Sympy e Numpy, escreva uma função que receba um valor no domínio dos números reais e devolva o 
+limite da função dada a seguir quando x tende a n.
+
+[ ]
+# 4
+def limite_f(n):
+    if n <= 0:
+        raise ValueError("O valor de n deve ser maior que zero.")
+    else:
+        numerador = 3 * n ** 2 - 1
+        denominador = n ** 0.5
+        return numerador / denominador
+def lim_lhopital_f(n):
+    if n <= 0:
+
+5) ClockCom é uma fábrica de relógios digitais capaz de produzir 1500 relógios por mês. Quando eles vendem x relógios em um mês seu lucro é dado pela função 
+apresentada. Quantos relógios eles precisam vender por mês para maximizar seu lucro? Além de responder a pergunta referente ao lucro máximo, você precisará 
+fazer uma função que devolva o lucro obtido para um determinado número de relógios vendidos em um determinado mês e plote esta função, destacando o ponto de 
+lucro máximo e o ponto referente a quantidade vendida em um mês específico.
+
+[ ]
+# 5
+import numpy as np
+import matplotlib.pyplot as plt
+def lucro(x):
+    return 300000 - 36000*x + 75*x**2 - x**3/3
+def plot_lucro():
+    x = np.linspace(0, 1500, 1000)
+    y = lucro(x)
+    lucro_maximo = lucro(60)
+    x_maximo = 60
+    ponto_venda = 900
+    lucro_venda = lucro(ponto_venda)
+    plt.plot(x, y)
+    plt.plot(x_maximo, lucro_maximo, 'ro', label='Lucro máximo')
+    plt.plot(ponto_venda, lucro_venda, 'bo', label='Venda de {} relógios'.format(ponto_venda))
+    plt.legend()
+    plt.xlabel('Quantidade de relógios vendidos')
+    plt.ylabel('Lucro')
+    plt.show()
